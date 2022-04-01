@@ -1,0 +1,16 @@
+//How to use
+// color: color(--name);
+// background: color(--name);
+@use 'sass:map';
+
+$colors: (
+    --main-color: #1d90f5,
+    --semi-color: #555b69,
+    --background-color: #272a37,
+    --input-color: #323644,
+    --text-color: #fff,
+);
+
+@function color($name) {
+    @return map.get($colors, $name)
+}
