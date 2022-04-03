@@ -1,26 +1,30 @@
-import React, { useState }from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
-import { AiOutlineIdcard, AiOutlineMail, AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
+import { AiOutlineIdcard, AiOutlineMail } from 'react-icons/ai';
 import * as Yup from 'yup';
 
-function SignUpPage() {
-    const [ showPassword, getShowPassword ] = useState(false)
-    const [ showConfirmPassword, getShowConfirmPassword ] = useState(false)
+function SignUpPage( props ) {
     
+
     const validationSchema = Yup.object().shape({
         firstname: 
-            Yup.string()
-                .trim()
-                .required('Please enter your first name!'),
+        Yup.string()
+            .trim()
+            .required('Please enter your first name!'),
         lastname:
-            Yup.string()
-                .trim()
-                .required('Please enter your last name!'),
+        Yup.string()
+            .trim()
+            .required('Please enter your last name!'),
         email:
-            Yup.string()
-                .trim()
-                .email('Must be valid an email!')
-                .required('Please enter your email!'), 
+        Yup.string()
+            .trim()
+            .required('Please enter your email!')
+            .matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,'Your email is incorrect'),
+        password:
+        Yup.string()
+            .trim()
+            .required('Please enter your password!')
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Your password must have at least 8 characters, 1 letter, 1 number and 1 special character'),
     })
 
     
@@ -34,17 +38,12 @@ function SignUpPage() {
         },
         onSubmit: (values) => {
             console.log(values);
+            props.saveData(values.firstname, values.lastname, values.email, values.password);
+            formik.resetForm();
         },
         validationSchema: validationSchema,
         
     })
-    
-    const handleShowPassword = () => {
-        getShowPassword(!showPassword);
-    }
-    const handleShowConfirmPassword = () => {
-        getShowConfirmPassword(!showConfirmPassword);
-    }
     return(
         <div>
             <div>
@@ -66,8 +65,6 @@ function SignUpPage() {
                             type='text' 
                             id='firstname' 
                             name='firstname'
-                            // value={formik.values.firstname}
-                            // onChange={formik.handleChange}
                             placeholder='Enter your firstname...'
                             {...formik.getFieldProps("firstname")}
                         />
@@ -88,8 +85,6 @@ function SignUpPage() {
                             type='text' 
                             id='lastname'
                             name='lastname' 
-                            // value={formik.values.lastname}
-                            // onChange={formik.handleChange}
                             placeholder='Enter your lastname...'
                             {...formik.getFieldProps("lastname")}
                         />
@@ -110,8 +105,7 @@ function SignUpPage() {
                             type='email' 
                             id='email' 
                             name='email'
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
+                            {...formik.getFieldProps("email")}
                             placeholder='Enter your email...'
                         />
                     </div>
@@ -120,40 +114,42 @@ function SignUpPage() {
                     </div>
                 </div>
                 {
-                    formik.errors.email && formik.touched.firstname && (
+                    formik.errors.email && formik.touched.email ? (
                         <p> {formik.errors.email} </p>
-                    )
+                    ) : null
                 }
                 <div>
                     <div>
                         <label htmlFor='password'> Password: </label>
                         <input 
-                            type={showPassword ? 'text' : 'password'} 
+                            type='password'
                             id='password' 
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
+                            {...formik.getFieldProps("password")}
                             placeholder='Enter your password...'
                         />
                     </div>
-                    <div onClick={handleShowPassword}>
-                        { showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-                    </div>
                 </div>
+                {
+                    formik.errors.password && formik.touched.password ? (
+                        <p> { formik.errors.password } </p>
+                    ) : null
+                }
                 <div>
                     <div>
                         <label htmlFor='confirmPassword'> Confirm password: </label>
                         <input 
-                            type={showConfirmPassword ? 'text' : 'password'} 
+                            type='password' 
                             id='confirmPassword' 
-                            value={formik.values.confirmPassword}
-                            onChange={formik.handleChange}
+                            {...formik.getFieldProps("confirmPassword")}
                             placeholder='Enter your password...'
                         />
                     </div>
-                    <div onClick={handleShowConfirmPassword}>
-                        { showConfirmPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-                    </div>
                 </div>
+                {
+                    formik.values.confirmPassword !== formik.values.password && formik.touched.confirmPassword ? (
+                        <p> Please check your password again </p>
+                    ) : null
+                }
                 <button type='submit'>
                     Create account
                 </button>
