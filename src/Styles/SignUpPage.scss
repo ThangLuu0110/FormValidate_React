@@ -1,0 +1,80 @@
+.SignUpPage{
+    min-height: $min-height-page;
+    display: flex;
+    justify-content: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+
+    .wrapper{
+        border-radius: 100px;
+        background-image: url(../image/mountain_background.webp);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0;
+        overflow: hidden;   
+
+        &__form{
+            width: 50%;
+            height: 100%;
+            background-color: $background-color;
+            display: flex;
+            flex-direction: column;
+            justify-content:  center;
+
+            .header{
+                margin-left: 5rem;
+                margin-bottom: 20px;
+
+                &__pretitle{
+                    font-size: 2rem;
+                    color: $text-second-color;
+                }
+
+                &__title{
+                    font-size: 4.5rem;
+                    color: $text-color;
+                }
+
+                &__text{
+                    font-size: 1.8rem;
+                    color: $text-second-color;
+                }
+            }
+
+            .content{
+                margin-left: 5rem;
+
+                .form__input{
+                    height: 7rem;
+                    width: 50rem;
+                    margin-bottom: 1.2rem;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-radius: 2rem;
+                    background-color: $input-color;
+                    padding: 0 15px 0 25px;
+
+                    &.name{
+                        width: 24rem;
+                        display: inline-block;
+
+                        & .form__input__box{
+                            height: 100%;
+                            float: left;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content:  center;
+                        }
+                        &:first-child{
+                            margin-right: 2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

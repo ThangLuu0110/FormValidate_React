@@ -1,0 +1,26 @@
+//Color
+$main-color: #1d90f5;
+$background-color: #272a37;
+$input-color: #323644;
+$text-color: #fff;
+$text-second-color: #939dad;
+$text-third-color: black;
+$navbar-color: #525561;
+$error-color: red;
+
+//Height
+$min-height-page: calc(100vh - 7rem);
+//
+
+
+button{
+    border: none;
+    cursor: pointer;
+}
+html{
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+

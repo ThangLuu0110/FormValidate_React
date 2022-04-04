@@ -45,115 +45,119 @@ function SignUpPage( props ) {
         
     })
     return(
-        <div>
-            <div>
-                <h5>
-                    START FOR FREE
-                </h5>
-                <h1>
-                    Create mew account
-                </h1>
-                <p>
-                    Already A Member? 
-                </p>
+        <div className=" SignUpPage container-fluid">
+            <div className="wrapper container">
+                <div className="wrapper__form">
+                    <div className="header">
+                        <h5 className="header__pretitle">
+                            START FOR FREE
+                        </h5>
+                        <h1 className="header__title">
+                            Create mew account
+                        </h1>
+                        <p className="header__text">
+                            Already A Member? 
+                        </p>
+                    </div>
+                    <form onSubmit={formik.handleSubmit} className='content'>
+                        <div className="form__input name">
+                            <div className="form__input__box">
+                                <label htmlFor='firstname'> First name: </label>
+                                <input 
+                                    type='text' 
+                                    id='firstname' 
+                                    name='firstname'
+                                    placeholder='Enter your firstname...'
+                                    {...formik.getFieldProps("firstname")}
+                                />
+                            </div>
+                            <div>
+                                <AiOutlineIdcard />
+                            </div>
+                        </div>
+                        {
+                            formik.errors.firstname && formik.touched.firstname &&(
+                                <p> {formik.errors.firstname} </p>
+                            )
+                        }
+                        <div className="form__input name">
+                            <div className="form__input__box">
+                                <label htmlFor='lastname'> Last name: </label>
+                                <input 
+                                    type='text' 
+                                    id='lastname'
+                                    name='lastname' 
+                                    placeholder='Enter your lastname...'
+                                    {...formik.getFieldProps("lastname")}
+                                />
+                            </div>
+                            <div>
+                                <AiOutlineIdcard />
+                            </div>
+                        </div>
+                        {
+                            formik.errors.lastname && formik.touched.lastname ? (
+                                <p> {formik.errors.lastname} </p>
+                            ) : null
+                        }
+                        <div className="form__input">
+                            <div className="form__input__box">
+                                <label htmlFor='email'> Email: </label>
+                                <input 
+                                    type='email' 
+                                    id='email' 
+                                    name='email'
+                                    {...formik.getFieldProps("email")}
+                                    placeholder='Enter your email...'
+                                />
+                            </div>
+                            <div>
+                                <AiOutlineMail />
+                            </div>
+                        </div>
+                        {
+                            formik.errors.email && formik.touched.email ? (
+                                <p> {formik.errors.email} </p>
+                            ) : null
+                        }
+                        <div className="form__input">
+                            <div className="form__input__box">
+                                <label htmlFor='password'> Password: </label>
+                                <input 
+                                    type='password'
+                                    id='password' 
+                                    {...formik.getFieldProps("password")}
+                                    placeholder='Enter your password...'
+                                />
+                            </div>
+                        </div>
+                        {
+                            formik.errors.password && formik.touched.password ? (
+                                <p> { formik.errors.password } </p>
+                            ) : null
+                        }
+                        <div className="form__input">
+                            <div className="form__input__box">
+                                <label htmlFor='confirmPassword'> Confirm password: </label>
+                                <input 
+                                    type='password' 
+                                    id='confirmPassword' 
+                                    {...formik.getFieldProps("confirmPassword")}
+                                    placeholder='Enter your password...'
+                                />
+                            </div>
+                        </div>
+                        {
+                            formik.values.confirmPassword !== formik.values.password && formik.touched.confirmPassword ? (
+                                <p> Please check your password again </p>
+                            ) : null
+                        }
+                        <button type='submit'>
+                            Create account
+                        </button>
+                    </form>
+                </div>
             </div>
-            <form onSubmit={formik.handleSubmit}>
-                <div>
-                    <div>
-                        <label htmlFor='firstname'> First name: </label>
-                        <input 
-                            type='text' 
-                            id='firstname' 
-                            name='firstname'
-                            placeholder='Enter your firstname...'
-                            {...formik.getFieldProps("firstname")}
-                        />
-                    </div>
-                    <div>
-                        <AiOutlineIdcard />
-                    </div>
-                </div>
-                {
-                    formik.errors.firstname && formik.touched.firstname &&(
-                        <p> {formik.errors.firstname} </p>
-                    )
-                }
-                <div>
-                    <div>
-                        <label htmlFor='lastname'> Last name: </label>
-                        <input 
-                            type='text' 
-                            id='lastname'
-                            name='lastname' 
-                            placeholder='Enter your lastname...'
-                            {...formik.getFieldProps("lastname")}
-                        />
-                    </div>
-                    <div>
-                        <AiOutlineIdcard />
-                    </div>
-                </div>
-                {
-                    formik.errors.lastname && formik.touched.lastname ? (
-                        <p> {formik.errors.lastname} </p>
-                    ) : null
-                }
-                <div>
-                    <div>
-                        <label htmlFor='email'> Email: </label>
-                        <input 
-                            type='email' 
-                            id='email' 
-                            name='email'
-                            {...formik.getFieldProps("email")}
-                            placeholder='Enter your email...'
-                        />
-                    </div>
-                    <div>
-                        <AiOutlineMail />
-                    </div>
-                </div>
-                {
-                    formik.errors.email && formik.touched.email ? (
-                        <p> {formik.errors.email} </p>
-                    ) : null
-                }
-                <div>
-                    <div>
-                        <label htmlFor='password'> Password: </label>
-                        <input 
-                            type='password'
-                            id='password' 
-                            {...formik.getFieldProps("password")}
-                            placeholder='Enter your password...'
-                        />
-                    </div>
-                </div>
-                {
-                    formik.errors.password && formik.touched.password ? (
-                        <p> { formik.errors.password } </p>
-                    ) : null
-                }
-                <div>
-                    <div>
-                        <label htmlFor='confirmPassword'> Confirm password: </label>
-                        <input 
-                            type='password' 
-                            id='confirmPassword' 
-                            {...formik.getFieldProps("confirmPassword")}
-                            placeholder='Enter your password...'
-                        />
-                    </div>
-                </div>
-                {
-                    formik.values.confirmPassword !== formik.values.password && formik.touched.confirmPassword ? (
-                        <p> Please check your password again </p>
-                    ) : null
-                }
-                <button type='submit'>
-                    Create account
-                </button>
-            </form>
         </div>
     )
 }
