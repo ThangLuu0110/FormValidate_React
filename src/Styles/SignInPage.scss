@@ -1,5 +1,4 @@
 .SignInPage{
-    min-height: $min-height-page;
     display: flex;
     justify-content: center;
     padding-top: 5rem;
@@ -12,21 +11,20 @@
         background-repeat: no-repeat;
         background-size: cover;
         padding: 0;
-        overflow: hidden;   
+        overflow: hidden;
 
         &__form{
-            width: 50%;
-            height: 100%;
             background-color: $background-color;
             display: flex;
             flex-direction: column;
             justify-content:  center;
+            padding: 0 5% 0 5%;
 
             .header{
-                margin-left: 5rem;
                 margin-bottom: 20px;
 
                 &__title{
+                    margin-top: 15rem;
                     font-size: 5rem;
                     color: $text-color;
                     line-height: 6rem;   
@@ -40,18 +38,18 @@
             }
 
             .content{
-                margin-left: 5rem;
 
                 .form__input{
                     height: 7rem;
                     width: 50rem;
-                    margin-bottom: 1.2rem;
+                    margin-bottom: 3rem;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     border-radius: 2rem;
                     background-color: $input-color;
                     padding: 0 15px 0 25px;
+                    position: relative;
 
                     &.error{
                         border: 1px solid red;
@@ -78,6 +76,11 @@
                             font-size: 1.5rem;
                             font-weight: bold;
                             color: $text-color;
+
+                            &:-webkit-autofill{
+                                -webkit-box-shadow: 0 0 0 1000px $input-color inset !important;
+                                -webkit-text-fill-color: white !important;
+                            }
                         }
 
                     }
@@ -89,22 +92,26 @@
                         align-items: center;
                         margin-left: 5rem;
                     }
+                    
+                    &--error{
+                        color: $error-color;
+                        font-size: 1.2rem;
+                        margin-left: 0.5rem;
+                        position: absolute;
+                        bottom: -2.2rem;
+                    }
                 }
 
-                .form__error{
-                    color: $error-color;
-                    font-size: 1.2rem;
-                    margin-left: 0.5rem;
-                }
 
                 .form__button{
                     height: 5rem;
                     width: 20rem;
                     border-radius:2.5rem;
-                    margin-top: 5rem;
+                    margin-top: 3rem;
                     font-size: 1.5rem;
                     color: $text-color;
                     background-color: $main-color;
+                    margin-bottom: 12rem;
                 }
             }
         }

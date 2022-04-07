@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { AiOutlineIdcard, AiOutlineMail } from 'react-icons/ai';
 import * as Yup from 'yup';
+import { AiOutlineIdcard, AiOutlineMail, AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 
 function SignUpPage( props ) {
-    
+    const [ showPassword, setShowPassword ] = useState(false);
+    const [ showConfirmPassword, setShowConfirmPassword ] = useState(false)
 
     const validationSchema = Yup.object().shape({
         firstname: 
@@ -27,7 +28,6 @@ function SignUpPage( props ) {
             .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Your password must have at least 8 characters, 1 letter, 1 number and 1 special character'),
     })
 
-    
     const formik = useFormik({
         initialValues: {
             firstname: '',
@@ -42,12 +42,19 @@ function SignUpPage( props ) {
             formik.resetForm();
         },
         validationSchema: validationSchema,
-        
     })
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
+    }
+
+    const handleShowConfirmPassword = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+    }
     return(
         <div className=" SignUpPage container-fluid">
-            <div className="wrapper container">
-                <div className="wrapper__form">
+            <div className="wrapper container row">
+                <div className="wrapper__form col-xl-6 col-lg-12">
                     <div className="header">
                         <h5 className="header__pretitle">
                             START FOR FREE
@@ -60,7 +67,7 @@ function SignUpPage( props ) {
                         </p>
                     </div>
                     <form onSubmit={formik.handleSubmit} className='content'>
-                        <div className="form__input name">
+                        <div className={`form__input name ${(formik.errors.firstname && formik.touched.firstname) ? 'error' : ''}`}>
                             <div className="form__input__box">
                                 <label htmlFor='firstname'> First name: </label>
                                 <input 
@@ -71,16 +78,16 @@ function SignUpPage( props ) {
                                     {...formik.getFieldProps("firstname")}
                                 />
                             </div>
-                            <div>
+                            <div className='form__input__icon'>
                                 <AiOutlineIdcard />
                             </div>
+                            {
+                                formik.errors.firstname && formik.touched.firstname &&(
+                                    <span className="form__input--error"> {formik.errors.firstname} </span>
+                                )
+                            }
                         </div>
-                        {
-                            formik.errors.firstname && formik.touched.firstname &&(
-                                <p> {formik.errors.firstname} </p>
-                            )
-                        }
-                        <div className="form__input name">
+                        <div className={`form__input name ${(formik.errors.lastname && formik.touched.lastname) ? 'error' : ''}`}>
                             <div className="form__input__box">
                                 <label htmlFor='lastname'> Last name: </label>
                                 <input 
@@ -91,19 +98,20 @@ function SignUpPage( props ) {
                                     {...formik.getFieldProps("lastname")}
                                 />
                             </div>
-                            <div>
+                            <div className='form__input__icon'>
                                 <AiOutlineIdcard />
                             </div>
+                            {
+                                formik.errors.lastname && formik.touched.lastname ? (
+                                    <span className="form__input--error"> {formik.errors.lastname} </span>
+                                ) : null
+                            }
                         </div>
-                        {
-                            formik.errors.lastname && formik.touched.lastname ? (
-                                <p> {formik.errors.lastname} </p>
-                            ) : null
-                        }
-                        <div className="form__input">
+                        <div className={`form__input ${(formik.errors.email && formik.touched.email) ? 'error' : ''}`}>
                             <div className="form__input__box">
                                 <label htmlFor='email'> Email: </label>
                                 <input 
+                                    autoComplete='off'
                                     type='email' 
                                     id='email' 
                                     name='email'
@@ -111,48 +119,58 @@ function SignUpPage( props ) {
                                     placeholder='Enter your email...'
                                 />
                             </div>
-                            <div>
+                            <div className='form__input__icon'>
                                 <AiOutlineMail />
                             </div>
+                            {
+                                formik.errors.email && formik.touched.email ? (
+                                    <span className="form__input--error"> {formik.errors.email} </span>
+                                ) : null
+                            }
                         </div>
-                        {
-                            formik.errors.email && formik.touched.email ? (
-                                <p> {formik.errors.email} </p>
-                            ) : null
-                        }
-                        <div className="form__input">
+                        <div className={`form__input ${(formik.errors.password && formik.touched.password) ? 'error' : ''}`}>
                             <div className="form__input__box">
                                 <label htmlFor='password'> Password: </label>
                                 <input 
-                                    type='password'
+                                    type={ showPassword ? 'text' : 'password' }
                                     id='password' 
                                     {...formik.getFieldProps("password")}
                                     placeholder='Enter your password...'
                                 />
                             </div>
+                            <div onClick={handleShowPassword} className='form__input__icon'>
+                                    {
+                                        !showPassword ? ( <AiOutlineEye /> ) : ( <AiOutlineEyeInvisible /> )
+                                    }
+                                </div>
+                            {
+                                formik.errors.password && formik.touched.password ? (
+                                    <span className="form__input--error"> { formik.errors.password } </span>
+                                ) : null
+                            }
                         </div>
-                        {
-                            formik.errors.password && formik.touched.password ? (
-                                <p> { formik.errors.password } </p>
-                            ) : null
-                        }
-                        <div className="form__input">
+                        <div className={`form__input ${(formik.errors.confirmPassword && formik.touched.confirmPassword) ? 'error' : ''}`}>
                             <div className="form__input__box">
                                 <label htmlFor='confirmPassword'> Confirm password: </label>
                                 <input 
-                                    type='password' 
+                                    type={ showConfirmPassword ? 'text' : 'password' }
                                     id='confirmPassword' 
                                     {...formik.getFieldProps("confirmPassword")}
                                     placeholder='Enter your password...'
                                 />
                             </div>
+                            <div onClick={handleShowConfirmPassword} className='form__input__icon'>
+                                    {
+                                        !showConfirmPassword ? ( <AiOutlineEye /> ) : ( <AiOutlineEyeInvisible /> )
+                                    }
+                                </div>
+                            {
+                                formik.values.confirmPassword !== formik.values.password && formik.touched.confirmPassword ? (
+                                    <span className="form__input--error"> Please check your password again </span>
+                                ) : null
+                            }
                         </div>
-                        {
-                            formik.values.confirmPassword !== formik.values.password && formik.touched.confirmPassword ? (
-                                <p> Please check your password again </p>
-                            ) : null
-                        }
-                        <button type='submit'>
+                        <button type='submit' className='form__button'>
                             Create account
                         </button>
                     </form>

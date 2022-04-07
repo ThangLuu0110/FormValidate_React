@@ -31,6 +31,7 @@ function SignInPage( props ) {
 
            if(check.length > 0){
                console.log(true);
+               formik.resetForm();
            }
         },
         validationSchema: validationSchema,
@@ -41,8 +42,8 @@ function SignInPage( props ) {
     }
     return(
         <div className="SignInPage container-fluid">
-            <div className="wrapper container">
-                <div className="wrapper__form">
+            <div className="wrapper container row">
+                <div className="wrapper__form col-xl-6 col-lg-12">
                     <div className="header">
                         <h1 className="header__title">
                             Sign In
@@ -57,7 +58,6 @@ function SignInPage( props ) {
                                 <div className="form__input__box">
                                     <label htmlFor="email"> Email: </label>
                                     <input
-                                        autoComplete='off'
                                         type="email" 
                                         name="email" 
                                         id="email" 
@@ -68,12 +68,12 @@ function SignInPage( props ) {
                                 <div className='form__input__icon'>
                                     <AiOutlineMail />
                                 </div>
+                                {
+                                    formik.errors.email && formik.touched.email ? (
+                                        <span className="form__input--error"> {formik.errors.email} </span>
+                                    ) : null
+                                }
                             </div>
-                            {
-                                formik.errors.email && formik.touched.email ? (
-                                    <p className="form__error"> {formik.errors.email} </p>
-                                ) : null
-                            }
                             <div className={`form__input ${(formik.errors.password && formik.touched.password) ? 'error' : ''}`}>
                                 <div className="form__input__box">
                                     <label htmlFor="password"> Password: </label>
@@ -91,12 +91,12 @@ function SignInPage( props ) {
                                         !showPassword ? ( <AiOutlineEye /> ) : ( <AiOutlineEyeInvisible /> )
                                     }
                                 </div>
+                                {
+                                    formik.errors.password && formik.touched.password ? (
+                                        <span className="form__input--error"> { formik.errors.password } </span>
+                                    ) : null
+                                }
                             </div>
-                            {
-                                formik.errors.password && formik.touched.password ? (
-                                    <p className="form__error"> { formik.errors.password } </p>
-                                ) : null
-                            }
                             <button type="submit" className='form__button'>
                                 Sign In
                             </button>

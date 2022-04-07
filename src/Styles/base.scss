@@ -8,11 +8,8 @@ $text-third-color: black;
 $navbar-color: #525561;
 $error-color: red;
 
-//Height
-$min-height-page: calc(100vh - 7rem);
+
 //
-
-
 button{
     border: none;
     cursor: pointer;
@@ -23,4 +20,7 @@ html{
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
+
+//Responsive
+
 
